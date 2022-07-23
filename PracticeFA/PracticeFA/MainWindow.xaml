@@ -25,7 +25,8 @@
 				Grid.Row="0" 
 				Height="30" 
 				Width="100"></Button>
-        <Label Grid.Row="1" Content="{Binding FromParent}"></Label>
+        <Label Grid.Row="1" Content="{Binding FromParent}"/>
+        
         <ListView x:Name="Extractors"
 				  Grid.Row="2" SelectedItem="{Binding SelectedTaskItem}"
 				  ItemsSource="{Binding TaskItems}">
@@ -63,81 +64,6 @@
                         <Button x:Name="deleteRecord" Content="X" Height="20" Width="20" Margin="5 0 0 0" 
                                 Command="{Binding DataContext.DeleteTaskItem, RelativeSource={RelativeSource AncestorType=ListView}}"
                                 CommandParameter="{Binding}"/>
-
-                        <!--<StackPanel Orientation="Horizontal"
-									Margin="5,0,0,0"
-									Visibility="{Binding IsTextBox1, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Label Content="{Binding TextBoxLabel1}"></Label>
-                            <TextBox Width="100" ToolTip="{Binding Description}"
-									 Text="{Binding TextBoxValue1}"></TextBox>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal"
-									Margin="5,0,0,0"
-									Visibility="{Binding IsTextBox2, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Label Content="{Binding TextBoxLabel2}"></Label>
-                            <TextBox Width="100"
-									 Text="{Binding TextBoxValue2}"></TextBox>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal"
-									Margin="5,0,0,0"
-									Visibility="{Binding IsTextBox3, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Label Content="{Binding TextBoxLabel3}"></Label>
-                            <TextBox Width="100"
-									 Text="{Binding TextBoxValue3}"></TextBox>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal"
-									Margin="5,0,0,0"
-									Visibility="{Binding IsComboBox, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Label Content="{Binding ComboBoxLabel}"></Label>
-                            <ComboBox ItemsSource="{Binding ComboBoxItemSource}"
-									  SelectedItem="{Binding ComboBoxSelectedItem}"
-									  DisplayMemberPath="Title"
-									  Width="100"></ComboBox>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal"
-									Margin="5,0,0,0"
-									Visibility="{Binding IsMultilineTextBox, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Label Content="{Binding MultilineTextBoxLabel}"></Label>
-                            <TextBox AcceptsReturn="True"
-									 Width="100"
-									 Text="{Binding MultilineTextBoxValue}"></TextBox>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal"									
-									Margin="5,0,0,0"
-									Visibility="{Binding IsCheckBox, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Label Content="{Binding CheckBoxLabel}"></Label>
-                            <CheckBox Margin="0,7,0,0"
-									  IsChecked="{Binding IsCheckBoxValue}"></CheckBox>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal"
-									Margin="5,0,0,0"
-									Visibility="{Binding IsMultiSelectComboBox, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Label Content="{Binding MultiSelectComboBoxLabel}"></Label>
-                            <ComboBox ItemsSource="{Binding ComboBoxItemSource}"									  
-									  Width="100">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <CheckBox Margin="0,7,0,0"
-													  IsChecked="{Binding IsSelected}"></CheckBox>
-                                            <Label Content="{Binding Title}"></Label>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal"
-									Margin="5,0,0,0"
-									Visibility="{Binding IsAnyComboBox, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <ComboBox ItemsSource="{Binding AnyComboBoxItemSource}"									  
-									  SelectedItem="{Binding AnyComboBoxSelectedItem}"									 
-									  Width="100">
-                            </ComboBox>
-                            <TextBox Visibility="{Binding IsAnyTextBox, Converter={StaticResource BooleanToVisibilityConverter}}"
-									 Text="{Binding AnyTextBoxValue}"
-									  Margin="5,0,0,0"
-									 Width="100"></TextBox>
-                        </StackPanel>-->
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
