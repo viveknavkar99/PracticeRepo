@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Controls;
+using PracticeFA.Common;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,7 +12,7 @@ using System.Windows.Data;
 
 namespace PracticeFA.Models
 {
-    public class ExtractorParameter
+    public class ExtractorParameter : ViewModelBase
     {
         /// <summary>
         /// The template
@@ -62,6 +64,21 @@ namespace PracticeFA.Models
         /// </summary>
         public bool IsAnyParameterGroup { get; set; }
 
+        private ObservableCollection<string> selectedItems;
+
+        public ObservableCollection<string> SelectedItems
+        {
+            get
+            {
+                return selectedItems;
+            }
+            set
+            {
+                selectedItems = value;
+                RaisePropertyChanged("SelectedItems");
+            }
+        }
+
         private StackPanel extractorParameterStackPanel;
 
         public StackPanel ExtractorParameterStackPanel
@@ -91,6 +108,7 @@ namespace PracticeFA.Models
                         break;
 
                     case Template.MultiSelectComboBox:
+                        AddMultiSelectComboBox();
                         break;
                 }
                 return extractorParameterStackPanel;
@@ -190,6 +208,31 @@ namespace PracticeFA.Models
             };
             BindingOperations.SetBinding(checkBox, CheckBox.IsCheckedProperty, myBinding);
             extractorParameterStackPanel.Children.Add(checkBox);
+        }
+
+        private void AddMultiSelectComboBox()
+        {
+            Binding myBinding;
+            MultiSelectComboBox multiSelectComboBox = new MultiSelectComboBox();
+            multiSelectComboBox.Width = 100;
+            myBinding = new Binding
+            {
+                Source = this,
+                Path = new PropertyPath("Values"),
+                Mode = BindingMode.TwoWay,
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            };
+            BindingOperations.SetBinding(multiSelectComboBox, MultiSelectComboBox.ItemsSourceProperty, myBinding);
+
+            myBinding = new Binding
+            {
+                Source = this,
+                Path = new PropertyPath("SelectedItems"),
+                Mode = BindingMode.TwoWay,
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            };
+            BindingOperations.SetBinding(multiSelectComboBox, MultiSelectComboBox.SelectedItemsProperty, myBinding);
+            extractorParameterStackPanel.Children.Add(multiSelectComboBox);
         }
     }
 }
