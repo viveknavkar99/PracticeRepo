@@ -1,0 +1,139 @@
+﻿<Window x:Class="PracticeFA.Views.FeatureAuthorDetailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PracticeFA.Views"
+        xmlns:utilities="clr-namespace:PracticeFA.Converters"
+        mc:Ignorable="d"
+        Title="FeatureAuthorDetailView" Height="450" Width="800"
+        >
+    <Window.Resources>
+        <utilities:BooleanVisibilityConverter x:Key="BooleanVisibilityConverter" />
+        <utilities:EqualityConverter x:Key="EqualityConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="350" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Command="{Binding AddItemCommand}"
+              Content="Add New Item" />
+        <!--<GroupBox >-->
+        <ListView  x:Name="TaskItems"
+				  Grid.Row="2"
+				  ItemsSource="{Binding TaskItems}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton IsChecked="{Binding IsSelectedRowId}" GroupName="datatype">
+                            <RadioButton.Style>
+                                <Style TargetType="{x:Type RadioButton}">
+                                    <Style.Triggers>
+                                        <DataTrigger Value="False">
+                                            <DataTrigger.Binding>
+                                                <MultiBinding Converter="{StaticResource EqualityConverter}">
+                                                    <Binding Path="SelectedItem.ExtractorDataType" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"/>
+                                                    <Binding RelativeSource="{RelativeSource AncestorType=ListView}" Path="DataContext.ParentDataType" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"/>
+                                                </MultiBinding>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RadioButton.Style>
+                        </RadioButton>
+                        <Label Content="ID"></Label>
+                        <TextBox Width="100"
+									 Text="{Binding Id}"></TextBox>
+                        <Label Content="Name"></Label>
+                        <ComboBox ItemsSource="{Binding Extractors}" 
+								  SelectedItem="{Binding SelectedExtractor}"
+								  DisplayMemberPath="Name" 
+								  Width="100"></ComboBox>
+                        <StackPanel Orientation="Horizontal"
+									Margin="5,0,0,0"
+									Visibility="{Binding IsTextBox1, Converter={StaticResource BooleanVisibilityConverter}}">
+                            <Label Content="{Binding TextBoxLabel1}"></Label>
+                            <TextBox Width="100" ToolTip="{Binding Description}"
+									 Text="{Binding TextBoxValue1}"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+									Margin="5,0,0,0"
+									Visibility="{Binding IsTextBox2, Converter={StaticResource BooleanVisibilityConverter}}">
+                            <Label Content="{Binding TextBoxLabel2}"></Label>
+                            <TextBox Width="100"
+									 Text="{Binding TextBoxValue2}"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+									Margin="5,0,0,0"
+									Visibility="{Binding IsTextBox3, Converter={StaticResource BooleanVisibilityConverter}}">
+                            <Label Content="{Binding TextBoxLabel3}"></Label>
+                            <TextBox Width="100"
+									 Text="{Binding TextBoxValue3}"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+									Margin="5,0,0,0"
+									Visibility="{Binding IsComboBox, Converter={StaticResource BooleanVisibilityConverter}}">
+                            <Label Content="{Binding ComboBoxLabel}"></Label>
+                            <ComboBox ItemsSource="{Binding ComboBoxItemSource}"
+									  SelectedItem="{Binding ComboBoxSelectedItem}"
+									  DisplayMemberPath="Title"
+									  Width="100"></ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+									Margin="5,0,0,0"
+									Visibility="{Binding IsMultilineTextBox, Converter={StaticResource BooleanVisibilityConverter}}">
+                            <Label Content="{Binding MultilineTextBoxLabel}"></Label>
+                            <TextBox AcceptsReturn="True"
+									 Width="100"
+									 Text="{Binding MultilineTextBoxValue}"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"									
+									Margin="5,0,0,0"
+									Visibility="{Binding IsCheckBox, Converter={StaticResource BooleanVisibilityConverter}}">
+                            <Label Content="{Binding CheckBoxLabel}"></Label>
+                            <CheckBox Margin="0,7,0,0"
+									  IsChecked="{Binding IsCheckBoxValue}"></CheckBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+									Margin="5,0,0,0"
+									Visibility="{Binding IsMultiSelectComboBox, Converter={StaticResource BooleanVisibilityConverter}}">
+                            <Label Content="{Binding MultiSelectComboBoxLabel}"></Label>
+                            <ComboBox ItemsSource="{Binding ComboBoxItemSource}"								  
+									  Width="100">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <CheckBox Margin="0,7,0,0"
+													  IsChecked="{Binding IsSelected}"></CheckBox>
+                                            <Label Content="{Binding Title}"></Label>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+									Margin="5,0,0,0"
+									Visibility="{Binding IsAnyComboBox, Converter={StaticResource BooleanVisibilityConverter}}">
+                            <ComboBox ItemsSource="{Binding AnyComboBoxItemSource}"									  
+									  SelectedItem="{Binding AnyComboBoxSelectedItem}"									 
+									  Width="100">
+                            </ComboBox>
+                            <TextBox Visibility="{Binding IsAnyTextBox, Converter={StaticResource BooleanVisibilityConverter}}"
+									 Text="{Binding AnyTextBoxValue}"
+									  Margin="5,0,0,0"
+									 Width="100"></TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--</GroupBox>-->
+        <Button Grid.Row="4" Command="{Binding SubmitExtractorsCommand}"
+              Content="Submit" />
+    </Grid>
+</Window>

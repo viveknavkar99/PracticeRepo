@@ -1,0 +1,87 @@
+<Extractors>
+  <TextFeatureExtractor name="HeaderExtractor" description="Get value of a header" categories="Email,Header">
+    <ParameterGroup type="Required">
+      <Parameter name="target" template="TextBox" type="string" description="Header name" />
+      <Parameter name="args" template="ComboBox" type="string" description="Index of the entry if multiple headers with the same name are present">
+        <Value>first</Value>
+        <Value>last</Value>
+      </Parameter>
+    </ParameterGroup>
+  </TextFeatureExtractor>
+  <TextFeatureExtractor name="ConstantTextExtractor" description="Get a constant text value" categories="String">
+    <ParameterGroup type="Any">
+      <Parameter name="constant" template="TextBox" type="string" description="Constant value" />
+      <Parameter name="data" template="MultilineTextBox" type="data" description="Constant value" />
+    </ParameterGroup>
+  </TextFeatureExtractor>
+  <TextFeatureExtractor name="ResultExtendedPropertyExtractor" description="Get the value of a text extended property from ScanResult" categories="Session">
+    <ParameterGroup type="Required">
+      <Parameter name="extpropname" template="TextBox" type="string" description="Name of the extended property" />
+    </ParameterGroup>
+    <ParameterGroup type="Optional">
+      <Parameter name="defaultvalue" template="TextBox" type="string" description="Default value to return if the property is not present" default="" />
+    </ParameterGroup>
+  </TextFeatureExtractor>
+  <TextFeatureExtractor name="P2FromHeaderExtractor" description="Get a field of the from header of a message" categories="Email,Header,Sender">
+    <ParameterGroup type="Required">
+      <Parameter name="addressPart" template="ComboBox" type="enum" description="The name of the part of the header that needs to be retrieved">
+        <Value>DisplayName</Value>
+        <Value>Address</Value>
+        <Value>Domain</Value>
+        <Value>IdnAddress</Value>
+        <Value>IdnDomain</Value>
+        <Value>VisualFocusDisplayName</Value>
+        <Value>VisualFocusAddress</Value>
+        <Value>VisualFocusDomain</Value>
+      </Parameter>
+    </ParameterGroup>
+  </TextFeatureExtractor>
+  <TextFeatureExtractor name="FirstContactMessageStateExtractor=" description="Examines existing GwsSignals for a variety of recipients and then returns a text summary of the signal for the message" categories="String">
+    <ParameterGroup type="Any">
+      <Parameter name="AmbiguousThresholdPercent" template="TextBox" type="double" description="ambiguous threshold percent"  default="0.50" minValue="0" maxValue="1"/>
+      <Parameter name="BlanketEstablishedPercent" template="TextBox" type="double" description="blanket established percent"  default="0.50" minValue="0"/>
+      <Parameter name="SemiUnanimousPercent" template="TextBox" type="double" description="semi unanimous percent" default="0.65" maxValue="1"/>
+    </ParameterGroup>
+  </TextFeatureExtractor>
+  <TextFeatureExtractor name="RegexTextExtractor" description="Regular expression based text target processor" categories="String">
+    <ParameterGroup type="Required">
+      <Parameter name="target" template="ComboBox" type="TextFeatureExtractor" description="target property" />
+      <Parameter name="pattern" template="TextBox" type="string" description="regex pattern" />
+    </ParameterGroup>
+    <ParameterGroup type="Optional">
+      <Parameter name="timeoutTicks" template="TextBox" type="long" description="regex timeout param" default="5" />
+      <Parameter name="outputFormat" template="TextBox" type="string" description="output format" default="{0}" />
+      <Parameter name="captureMultipleMatches" template="CheckBox" type="bool" description="capture multiple matches" default="false"/>
+    </ParameterGroup>
+  </TextFeatureExtractor>
+  <TextFeatureExtractor name="TextFormatExtractor" description="Text target processor that formats different target strings" categories="String">
+    <ParameterGroup type="Required">
+      <Parameter name="format" template="TextBox" type="string" description="text format to use" />
+			<Parameter name="targets" template="MultiSelectComboBox" type="ExtractorList" description="targets to format" >
+				<Value>DisplayName</Value>
+				<Value>Address</Value>
+				<Value>Domain</Value>
+				<Value>IdnAddress</Value>
+				<Value>IdnDomain</Value>
+				<Value>VisualFocusDisplayName</Value>
+				<Value>VisualFocusAddress</Value>
+				<Value>VisualFocusDomain</Value>
+			</Parameter>
+    </ParameterGroup>
+    <ParameterGroup type="Optional">
+      <Parameter name="escapeXMLForTargets" template="TextBox" type="bool" description="Indicates if the targets should be escaped to work for XML" default="false" />
+    </ParameterGroup>
+  </TextFeatureExtractor>
+  <TextFeatureExtractor name="NumberToTextExtractor" description="Number to text extractor" categories="String">
+    <ParameterGroup type="Required">
+      <Parameter name="target" template="ComboBox" type="NumericFeatureExtractor" description="numeric target property" />
+    </ParameterGroup>
+  </TextFeatureExtractor>
+  <BuiltInTextFeatureExtractor name="header" description="Get value of a header">
+    <ParameterGroup type="Required">
+      <Parameter template="TextBox" type="string" description="Header Name" />
+    </ParameterGroup>
+  </BuiltInTextFeatureExtractor>
+	<BuiltInNumericExtractor name="utcNowTicks" description="Current UTC time in ticks">		
+	</BuiltInNumericExtractor>
+</Extractors>

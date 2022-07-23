@@ -1,0 +1,4 @@
+<FeaturePackage>
+  <TextFeatureExtractor type="HeaderExtractor" Id="1" args="first" />
+  <TextFeatureExtractor type="HeaderExtractor" Id="2" args="last" />
+</FeaturePackage>
