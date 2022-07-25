@@ -96,5 +96,20 @@ namespace PracticeFA.Models
                 this.RaisePropertyChanged(nameof(this.ExtractorParameterGroups));
             }
         }
+
+        public Extractor Clone()
+        {
+            var clone = new Extractor();
+            clone.Name = this.Name;
+            clone.ExtractorDataType = this.ExtractorDataType;
+            clone.ExtractorType = this.ExtractorType;
+            clone.ExtractorParameterGroups = new ObservableCollection<ExtractorParameterGroup>();
+            foreach (var group in ExtractorParameterGroups)
+            {
+                clone.ExtractorParameterGroups.Add(group.Clone());
+            }
+
+            return clone;
+        }
     }
 }
