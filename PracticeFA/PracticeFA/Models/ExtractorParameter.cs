@@ -47,7 +47,18 @@ namespace PracticeFA.Models
         /// <summary>
         /// The Selected Value
         /// </summary>
-        public string SelectedValue { get; set; }
+        private string selectedValue;
+
+        public string SelectedValue
+        {
+            get { return selectedValue; }
+            set 
+            { 
+                selectedValue = value;
+                RaisePropertyChanged("SelectedValue");
+            }
+        }
+
 
         /// <summary>
         /// The Minimum Value
@@ -139,6 +150,9 @@ namespace PracticeFA.Models
             };
             BindingOperations.SetBinding(textBox, TextBox.TextProperty, myBinding);
             extractorParameterStackPanel.Children.Add(textBox);
+
+            if (!string.IsNullOrEmpty(DefaultValue))
+                SelectedValue = DefaultValue;
         }
 
         private void AddComboBox()
