@@ -171,14 +171,15 @@ namespace PracticeFA
             return extractorParameterGroups;
         }
 
-        private async void Add_Click(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
-            extractors = new ObservableCollection<Extractor>();
-            await PopulateDataAsync();
-            TaskItem listItem = new TaskItem()
-            {
-                Extractors = extractors,
-            };
+            TaskItem listItem  = new TaskItem();
+            var exts = extractors.Select(s => s.Clone());
+            if (exts != null )
+                listItem.Extractors = new ObservableCollection<Extractor>(exts);
+            else
+                listItem.Extractors = new ObservableCollection<Extractor>();
+
             this.TaskItems.Add(listItem);
         }
 

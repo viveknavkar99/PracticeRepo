@@ -234,5 +234,23 @@ namespace PracticeFA.Models
             BindingOperations.SetBinding(multiSelectComboBox, MultiSelectComboBox.SelectedItemsProperty, myBinding);
             extractorParameterStackPanel.Children.Add(multiSelectComboBox);
         }
+
+        public ExtractorParameter Clone()
+        {
+            return new ExtractorParameter 
+            { 
+                Template = Template,
+                Name = Name,
+                DefaultValue = DefaultValue,
+                GroupType = GroupType,
+                Values = Values,
+                DataType = DataType,
+                SelectedValue = SelectedValue,
+                MinValue = MinValue,
+                MaxValue = MaxValue,
+                IsAnyParameterGroup = IsAnyParameterGroup,
+                SelectedItems = SelectedItems
+            };
+        }
     }
 }

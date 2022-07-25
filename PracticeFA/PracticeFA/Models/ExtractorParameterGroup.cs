@@ -21,16 +21,19 @@ namespace PracticeFA.Models
             set
             {
                 selectedExtractorParameter = value;
-                foreach (var parameter in ExtractorParameters)
+                if (selectedExtractorParameter != null)
                 {
-                    parameter.IsAnyParameterGroup = false;
+                    foreach (var parameter in ExtractorParameters)
+                    {
+                        parameter.IsAnyParameterGroup = false;
+                    }
+
+                    selectedExtractorParameter.IsAnyParameterGroup = true;
+
+                    if (extractorParameterGroupStackPanel.Children.Count > 1)
+                        extractorParameterGroupStackPanel.Children.RemoveAt(1);
+                    extractorParameterGroupStackPanel.Children.Add(selectedExtractorParameter.ExtractorParameterStackPanel);
                 }
-
-                selectedExtractorParameter.IsAnyParameterGroup = true;
-
-                if (extractorParameterGroupStackPanel.Children.Count > 1)
-                    extractorParameterGroupStackPanel.Children.RemoveAt(1);
-                extractorParameterGroupStackPanel.Children.Add(selectedExtractorParameter.ExtractorParameterStackPanel);
             }
         }
 
@@ -89,6 +92,23 @@ namespace PracticeFA.Models
             };
             BindingOperations.SetBinding(comboBox, ComboBox.SelectedItemProperty, myBinding);
             extractorParameterGroupStackPanel.Children.Add(comboBox);
+        }
+
+        public ExtractorParameterGroup Clone()
+        {
+            var clone = new ExtractorParameterGroup
+            {
+                ExtractorParameters = new ObservableCollection<ExtractorParameter>(),
+                Type = Type
+            };
+            foreach (var parameter in this.ExtractorParameters)
+            {
+                clone.ExtractorParameters.Add(parameter.Clone());
+            }
+
+            clone.SelectedExtractorParameter = SelectedExtractorParameter;
+                
+            return clone;
         }
 
     }
