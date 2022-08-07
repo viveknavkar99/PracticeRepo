@@ -98,9 +98,19 @@ namespace Controls
 
             if (clickedBox.Content == "All")
             {
-                foreach (Node node in _nodeList)
+                if (clickedBox.IsChecked.Value)
                 {
-                    node.IsSelected = true;
+                    foreach (Node node in _nodeList)
+                    {
+                        node.IsSelected = true;
+                    }
+                }
+                else
+                {
+                    foreach (Node node in _nodeList)
+                    {
+                        node.IsSelected = false;
+                    }
                 }
             }
             else
