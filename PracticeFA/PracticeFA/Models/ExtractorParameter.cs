@@ -140,7 +140,8 @@ namespace PracticeFA.Models
 
             TextBox textBox = new TextBox();
             textBox.Width = 100;
-            textBox.Margin = new Thickness(5, 0, 0, 0);
+            textBox.Margin = new Thickness(5, 0, 5, 0);
+            textBox.VerticalContentAlignment = VerticalAlignment.Center;
             Binding myBinding = new Binding
             {
                 Source = this,
@@ -196,7 +197,8 @@ namespace PracticeFA.Models
             multiLineTxtBox.AcceptsReturn = true;
             multiLineTxtBox.TextWrapping = TextWrapping.Wrap;
             multiLineTxtBox.Width = 100;
-            multiLineTxtBox.Margin = new Thickness(5, 0, 0, 0);
+            multiLineTxtBox.Margin = new Thickness(5, 0, 5, 0);
+            multiLineTxtBox.VerticalContentAlignment =  VerticalAlignment.Center;
             
             Binding myBinding = new Binding
             {
@@ -213,6 +215,8 @@ namespace PracticeFA.Models
         {
             CheckBox checkBox = new CheckBox();
             checkBox.Content = Name;
+            checkBox.Margin = new Thickness(5, 0, 5, 0);
+            checkBox.VerticalAlignment = VerticalAlignment.Center;
             Binding myBinding = new Binding
             {
                 Source = this,
@@ -226,9 +230,20 @@ namespace PracticeFA.Models
 
         private void AddMultiSelectComboBox()
         {
+            if (!IsAnyParameterGroup)
+            {
+                TextBlock textBlock = new TextBlock
+                {
+                    Text = Name,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+                extractorParameterStackPanel.Children.Add(textBlock);
+            }
             Binding myBinding;
             MultiSelectComboBox multiSelectComboBox = new MultiSelectComboBox();
-            multiSelectComboBox.Width = 100;
+            multiSelectComboBox.Width = 120;
+            multiSelectComboBox.Margin = new Thickness(5, 0, 5, 0);
+
             myBinding = new Binding
             {
                 Source = this,

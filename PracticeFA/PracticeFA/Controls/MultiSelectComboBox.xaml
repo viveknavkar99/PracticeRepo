@@ -18,7 +18,7 @@
             <GradientStop Color="#FFC4E0FC" Offset="1.0"/>
         </LinearGradientBrush>
         <SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="#FF569DE5"/>
-        
+
         <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="IsTabStop" Value="false"/>
@@ -29,11 +29,18 @@
                     <ControlTemplate TargetType="{x:Type ToggleButton}">
                         <Border x:Name="templateRoot" Background="{StaticResource ComboBox.Static.Background}" BorderBrush="{StaticResource ComboBox.Static.Border}" 
                                 BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
-                            <Border x:Name="splitBorder" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" Margin="0" 
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="10"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter Grid.Column="0" Content="{TemplateBinding Content}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2 0 5 0"/>
+                                <Border x:Name="splitBorder" Grid.Column="1" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" Margin="0" 
                                     SnapsToDevicePixels="true" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
-                                <Path x:Name="arrow" Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" 
+                                    <Path x:Name="arrow" Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" 
                                       Fill="{StaticResource ComboBox.Static.Glyph}" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
-                            </Border>
+                                </Border>
+                            </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="true">
@@ -67,7 +74,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    
+
     <ComboBox x:Name="MultiSelectCombo"  
         SnapsToDevicePixels="True"
         OverridesDefaultStyle="True"
@@ -86,17 +93,16 @@
         <ComboBox.Template>
             <ControlTemplate TargetType="ComboBox">
                 <Grid>
-                    <ToggleButton 
+                    <ToggleButton BorderThickness="1"
                         Name="ToggleButton" Content="{Binding Path=Text,Mode=TwoWay,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                         IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ToolTip="{Binding Path=Text,Mode=TwoWay,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                        Focusable="false" ClickMode="Press" HorizontalContentAlignment="Left">
-                    </ToggleButton>                   
+                        Focusable="false" ClickMode="Press" HorizontalContentAlignment="Left" Style="{StaticResource ComboBoxToggleButton}">
+                    </ToggleButton>
                     <Popup Name="Popup"
-                        Placement="Bottom"                        
-                        AllowsTransparency="True" 
+                        Placement="Bottom"
                         Focusable="False"  IsOpen="{TemplateBinding IsDropDownOpen}"
                         PopupAnimation="Slide">
-                        <Grid Name="DropDown"
+                        <Grid Name="DropDown" Background="White"
                               SnapsToDevicePixels="True"  
                               MinWidth="{TemplateBinding ActualWidth}"
                               MaxHeight="{TemplateBinding MaxDropDownHeight}">

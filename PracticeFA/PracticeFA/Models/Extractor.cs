@@ -8,6 +8,8 @@ namespace PracticeFA.Models
 {
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.IO;
+    using System.Runtime.Serialization.Formatters.Binary;
     using System.Windows.Controls;
 
     /// <summary>
